@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const topicController = require("../controllers/TopicController");
+const auth = require("../middleware/AuthMiddleware");
 
-router.get('/', topicController.getAll)
-router.get('/:id', topicController.getById)
-router.post('/', topicController.create)
-router.put('/', topicController.update)
-router.delete('/:id', topicController.remove)
+router.get('/', auth, topicController.getAll)
+router.get('/:id', auth, topicController.getById)
+router.post('/', auth, topicController.create)
+router.put('/', auth, topicController.update)
+router.delete('/:id', auth, topicController.remove)
 
 module.exports = router;

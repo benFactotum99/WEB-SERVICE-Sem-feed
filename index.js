@@ -23,6 +23,9 @@ app.use("/Api/Topics", topicRoute);
 const newsRoute = require("./src/presentation/routes/News");
 app.use("/Api/News", newsRoute);
 
+const authRoute = require("./src/presentation/routes/Auth");
+app.use("/Api/Auth", authRoute);
+
 //Polling Daemon
 const newsWorker = require("../WEB SERVICE/src/domain/workers/NewsWorker");
 async function daemonFunc() {

@@ -10,6 +10,11 @@ const getById = async (id) => {
     return user;
 }
 
+const getByEmail = async (email) => {
+    const user = await userDbService.getByEmail(email);
+    return user;
+}
+
 const getUserResource = async () => {
     const users = await userDbService.getUserResource();
     return users;
@@ -29,4 +34,4 @@ const remove = async (id) => {
     await userDbService.remove(id);
 }
 
-module.exports = { getAll, getById, getUserResource, create, update, remove };
+module.exports = { getAll, getById, getByEmail, getUserResource, create, update, remove };
