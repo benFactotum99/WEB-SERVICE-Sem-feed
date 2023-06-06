@@ -76,6 +76,12 @@ const login = async (req, res) => {
     } 
 }
 
+const logout = async (req, res) => {
+    if (req.body.token == null) return res.sendStatus(403);
+    refreshTokens = refreshTokens.filter(token => token !== req.body.token);
+    return res.status(200).json({ "Message": "OK" });
+} 
+
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user.id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
 }
@@ -84,4 +90,4 @@ const generateRefreshToken = (user) => {
     return jwt.sign({ id: user.id, email: user.email }, process.env.REFRESH_TOKEN_SECRET);
 }
 
-module.exports = { login, register, token };
+module.exports = { login, register, token, logout };
