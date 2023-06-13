@@ -15,6 +15,10 @@ const topicSchema = new Schema({
         type: String,
         required: true
     },
+    active: {
+        type: Boolean,
+        required: true
+    }
 },
 {
     versionKey: false 

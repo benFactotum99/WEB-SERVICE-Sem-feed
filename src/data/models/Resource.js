@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const resourceSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId, 
-        ref: 'User'
-    },
     url: {
         type: String,
         unique: true

@@ -25,7 +25,7 @@ const create = async (resource) => {
 
 const upsert = async (resource) => {
     const resUpsert = await Resource.findOneAndUpdate(
-        {'url': resource.url, 'user': resource.user}, 
+        {'url': resource.url }, 
         resource, 
         { upsert: true, returnOriginal: false });
     return resUpsert;
