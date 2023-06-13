@@ -3,7 +3,7 @@ const resourceRepository = require("../repositories/ResourceRepository");
 const userRepository = require("../repositories/UserRepository");
 
 const upsertWorker = async (newsEntity) => {
-    var resource = await resourceRepository.getByUrlUserId(newsEntity.url, newsEntity.user_id);
+    var resource = await resourceRepository.getByUrl(newsEntity.url);
     var newses = await newsRepository.getNewsesFromUrl(newsEntity.url);
     newses = await newsRepository.setRankingNewses(newses, newsEntity.topic);
 

@@ -5,12 +5,9 @@ const getAll = async () => {
     return resources;
 }
 
-const getByUrlUserId = async (url, userId) => {
-    const resource = await Resource.findOne({'url': url, 'user': userId});
-    if (resource == null) 
-        return new Resource();
-    else 
-        return resource;
+const getByUrl = async (url) => {
+    const resource = await Resource.findOne({'url': url});
+    return resource;
 }
 
 const getById = async (id) => {
@@ -46,4 +43,4 @@ const remove = async (id) => {
     );
 }
 
-module.exports = { getAll, getById, getByUrlUserId, create, update, upsert, remove };
+module.exports = { getAll, getById, getByUrl, create, update, upsert, remove };

@@ -11,8 +11,8 @@ const getById = async (id) => {
     return resource;
 }
 
-const getByUrlUserId = async (url, userId) => {
-    const resource = await resourceDbService.getByUrlUserId(url, userId);
+const getByUrl = async (url) => {
+    const resource = await resourceDbService.getByUrl(url);
     return resource;
 }
 
@@ -23,7 +23,6 @@ const create = async (resource) => {
 }
 
 const update = async (resource) => {
-    await findRss(resource.url);
     const updatedResource = await resourceDbService.update(resource);
     return updatedResource;
 }
@@ -44,4 +43,4 @@ const remove = async (id) => {
     await resourceDbService.remove(id);
 }
 
-module.exports = { getAll, getById, getByUrlUserId, create, update, upsert, findRss, remove };
+module.exports = { getAll, getById, getByUrl, create, update, upsert, findRss, remove };
