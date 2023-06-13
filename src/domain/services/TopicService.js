@@ -1,4 +1,4 @@
-const topicDbService = require("../../data/services/db/TopicDbService");
+const topicDbService = require("../../data/repository/db/TopicDbRepository");
 
 const getAll = async () => {
     const topics = await topicDbService.getAll();

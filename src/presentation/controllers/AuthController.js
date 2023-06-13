@@ -1,7 +1,7 @@
 const User = require("../../data/models/User");
 const jwt = require("jsonwebtoken"); 
 require("dotenv").config()
-const userRepository = require("../../domain/repositories/UserRepository");
+const userService = require("../../domain/services/UserService");
 const bcrypt = require("bcrypt");
 
 const register = async (req, res) => {
@@ -12,7 +12,7 @@ const register = async (req, res) => {
             res.status(400).send("All input is required");
         }
         
-        const oldUser = await userRepository.getByEmail(email);
+        const oldUser = await userService.getByEmail(email);
       
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
@@ -20,7 +20,7 @@ const register = async (req, res) => {
       
         encryptedPassword = await bcrypt.hash(password, 10);
         
-        const user = await userRepository.create({
+        const user = await userService.create({
             email: email,
             password: encryptedPassword,
             name: name,
@@ -61,7 +61,7 @@ const login = async (req, res) => {
             res.status(400).send("All input is required");
         }
 
-        const user = await userRepository.getByEmail(email);
+        const user = await userService.getByEmail(email);
 
         if (user && (await bcrypt.compare(password, user.password))) {
             // Create token

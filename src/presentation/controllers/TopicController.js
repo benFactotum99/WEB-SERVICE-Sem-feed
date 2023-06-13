@@ -1,8 +1,8 @@
-const topicRepository = require("../../domain/repositories/TopicRepository");
+const topicService = require("../../domain/services/TopicService");
 
 const getAll = async (req, res) => {
     try {
-        const topics = await topicRepository.getAll();
+        const topics = await topicService.getAll();
         return res.status(200).json(topics);
     } catch (error) {
         console.log(error.message);
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const topic = await topicRepository.getById(req.params.id);
+        const topic = await topicService.getById(req.params.id);
         return res.status(200).json(topic);
     } catch (error) {
         console.log(error.message);
@@ -22,7 +22,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const topic = await topicRepository.create(req.body);
+        const topic = await topicService.create(req.body);
         return res.status(200).json(topic);
     } catch (error) {
         console.log(error.message);
@@ -32,7 +32,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const topic = await topicRepository.update(req.body);
+        const topic = await topicService.update(req.body);
         return res.status(200).json(topic);
     } catch (error) {
         console.log(error.message);
@@ -42,7 +42,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        await topicRepository.remove(req.params.id);
+        await topicService.remove(req.params.id);
         return res.status(200).json({"message": "OK"});
     } catch (error) {
         console.log(error.message);

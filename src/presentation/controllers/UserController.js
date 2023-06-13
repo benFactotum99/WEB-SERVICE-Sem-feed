@@ -1,8 +1,8 @@
-const userRepository = require("../../domain/repositories/UserRepository");
+const userService = require("../../domain/services/UserService");
 
 const getAll = async (req, res) => {
     try {
-        const users = await userRepository.getAll();
+        const users = await userService.getAll();
         return res.status(200).json(users);
     } catch (error) {
         console.log(error.message);
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const user = await userRepository.getById(req.params.id);
+        const user = await userService.getById(req.params.id);
         return res.status(200).json(user);
     } catch (error) {
         console.log(error.message);
@@ -22,7 +22,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const user = await userRepository.create(req.body);
+        const user = await userService.create(req.body);
         return res.status(200).json(user);
     } catch (error) {
         console.log(error.message);
@@ -32,7 +32,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const user = await userRepository.update(req.body);
+        const user = await userService.update(req.body);
         return res.status(200).json(user);
     } catch (error) {
         console.log(error.message);
@@ -42,7 +42,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        await userRepository.remove(req.params.id);
+        await userService.remove(req.params.id);
         return res.status(200).json({"message": "OK"});
     } catch (error) {
         console.log(error.message);

@@ -30,11 +30,11 @@ const resourceRoute = require("./src/presentation/routes/Resource");
 app.use("/Api/Resources", resourceRoute); 
 
 //Polling Daemon
-const newsWorker = require("../WEB SERVICE/src/domain/workers/NewsWorker");
+/*const newsWorker = require("../WEB SERVICE/src/domain/workers/NewsWorker");
 async function daemonFunc() {
   await newsWorker.daemonWorker();
   console.log('Process daemon done!');
-}
+}*/
 //setInterval(daemonFunc, 5000);
 
 app.listen(port, async () => {
