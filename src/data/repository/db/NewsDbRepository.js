@@ -1,5 +1,8 @@
 const News = require("../../models/News");
-require("dotenv").config()
+const User = require("../../models/User");
+const Topic = require("../../models/Topic");
+
+require("dotenv").config();
 
 const getAll = async () => {
     const newss = await News.find();
@@ -17,15 +20,21 @@ const getByGuid = async (guid) => {
 }
 
 const getUserNewses = async (userId) => {
+    const user = await User.findById(userId);
+    const topics = await Topic.find({ "user": userId, "active": true, }, {
+        fields: { _id: 1 }
+    });
     const newses = await News
-        .find({ "user": userId, "topics.ranking": { "$gte": process.env.RANKING } })
+        .find({ "resource": user.resources, "topics.ranking": { "$gte": process.env.RANKING }, })
         .populate('resource', 'url')
         .populate({
             path: 'topics',
             populate: {
                 path: 'topic',
-                model: 'Topic'
-            }});
+                model: 'Topic',
+            } 
+        })
+        .where('topics.topic').in(topics);
     return newses;
 }
 

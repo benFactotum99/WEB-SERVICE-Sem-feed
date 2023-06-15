@@ -42,7 +42,9 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        await topicService.remove(req.params.id);
+        const topic = await topicService.getById(req.params.id);
+        topic.active = false;
+        await topicService.update(topic);
         return res.status(200).json({"message": "OK"});
     } catch (error) {
         console.log(error.message);
