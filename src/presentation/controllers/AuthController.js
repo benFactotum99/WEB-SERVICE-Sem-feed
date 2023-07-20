@@ -68,7 +68,7 @@ const login = async (req, res) => {
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
             refreshTokens.push(refreshToken);
-            return res.status(200).json({ user: user, accessToken: accessToken, refreshToken: refreshToken });
+            return res.status(200).json({ userId: user.id, accessToken: accessToken, refreshToken: refreshToken });
         }
         return res.status(400).send("Invalid Credentials");
     } catch (err) {
