@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config()
 const userService = require("../../domain/services/UserService");
 const bcrypt = require("bcrypt");
+const { expDependencies } = require("mathjs");
 
 const register = async (req, res) => {
     try {
@@ -32,9 +33,12 @@ const register = async (req, res) => {
         refreshTokens.push(refreshToken);
         
         res.status(200).json({
-            user: user,
-            accessToken: accessToken,
-            refreshToken: refreshToken
+            userId: user.id, 
+            email: user.email,
+            name: user.name,
+            surname: user.surname,
+            accessToken: accessToken, 
+            refreshToken: refreshToken 
         });
     } catch (err) {
         return res.sendStatus(500);
@@ -62,17 +66,34 @@ const login = async (req, res) => {
         }
 
         const user = await userService.getByEmail(email);
+        if (user == null) {
+            return res.status(401).send("user-not-found");
+        }
 
-        if (user && (await bcrypt.compare(password, user.password))) {
+        var flagPassword = (await bcrypt.compare(password, user.password));
+        if (flagPassword == false){
+            return res.status(401).send("wrong-password");
+        }
+
+        if (user && flagPassword) {
             // Create token
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
             refreshTokens.push(refreshToken);
-            return res.status(200).json({ userId: user.id, accessToken: accessToken, refreshToken: refreshToken });
+            return res.status(200).json(
+                { 
+                    userId: user.id, 
+                    email: user.email,
+                    name: user.name,
+                    surname: user.surname,
+                    accessToken: accessToken, 
+                    refreshToken: refreshToken 
+                });
         }
-        return res.status(400).send("Invalid Credentials");
+        
+        return res.status(400).send("generic-error");
     } catch (err) {
-        return res.sendStatus(500);
+        return res.status(500).send("internal-server-error");
     } 
 }
 

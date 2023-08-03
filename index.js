@@ -4,6 +4,7 @@ var app = express();
 const port = process.env.PORT;
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+var cors = require('cors');
 
 const mongoDB = process.env.CNN; 
 
@@ -13,6 +14,8 @@ app.use(
       type: ["application/json", "text/plain"],
     })
 );
+
+app.use(cors())
 
 const userRoute = require("./src/presentation/routes/User");
 app.use("/Api/Users", userRoute);
@@ -28,14 +31,6 @@ app.use("/Api/Auth", authRoute);
 
 const resourceRoute = require("./src/presentation/routes/Resource");
 app.use("/Api/Resources", resourceRoute); 
-
-//Polling Daemon
-/*const newsWorker = require("../WEB SERVICE/src/domain/workers/NewsWorker");
-async function daemonFunc() {
-  await newsWorker.daemonWorker();
-  console.log('Process daemon done!');
-}*/
-//setInterval(daemonFunc, 5000);
 
 app.listen(port, async () => {
     await mongoose.connect(mongoDB)
