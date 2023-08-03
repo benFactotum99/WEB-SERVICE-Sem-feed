@@ -15,7 +15,7 @@ app.use(
     })
 );
 
-app.use(cors())
+app.use(cors());
 
 const userRoute = require("./src/presentation/routes/User");
 app.use("/Api/Users", userRoute);
