@@ -15,7 +15,7 @@ app.use(
     })
 );
 
-app.use(cors());
+app.use(cors({origin:true,credentials: true}));
 
 const userRoute = require("./src/presentation/routes/User");
 app.use("/Api/Users", userRoute);

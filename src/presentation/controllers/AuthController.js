@@ -91,6 +91,7 @@ const login = async (req, res) => {
                 });
         }
         
+
         return res.status(400).send("generic-error");
     } catch (err) {
         return res.status(500).send("internal-server-error");
