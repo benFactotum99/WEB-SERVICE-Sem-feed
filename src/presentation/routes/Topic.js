@@ -5,6 +5,7 @@ const auth = require("../middleware/AuthMiddleware");
 
 router.get('/', auth, topicController.getAll)
 router.get('/:id', auth, topicController.getById)
+router.get('/User/:userId', auth, topicController.getByUserId)
 router.post('/', auth, topicController.create)
 router.put('/', auth, topicController.update)
 router.delete('/:id', auth, topicController.remove)

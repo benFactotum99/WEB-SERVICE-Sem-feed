@@ -10,6 +10,11 @@ const getById = async (id) => {
     return topic;
 }
 
+const getByUserId = async (userId) => {
+    const topic = await topicDbService.getByUserId(userId);
+    return topic;
+}
+
 const create = async (topic) => {
     const newTopic = await topicDbService.create(topic);
     return newTopic;
@@ -24,4 +29,4 @@ const remove = async (id) => {
     await topicDbService.remove(id);
 }
 
-module.exports = { getAll, getById, create, update, remove };
+module.exports = { getAll, getById, getByUserId, create, update, remove };

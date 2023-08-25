@@ -10,6 +10,11 @@ const getById = async (id) => {
     return topic;
 }
 
+const getByUserId = async (userId) => {
+    const topics = await Topic.find({ "user": userId, "active": true, });
+    return topics;
+}
+
 const create = async (topic) => {
     const newTopic = await Topic.create(topic);
     return newTopic;
@@ -17,7 +22,7 @@ const create = async (topic) => {
 
 const update = async (topic) => {
     const editTopic = await Topic.findOneAndUpdate(
-        { _id: topic.id },
+        { _id: topic._id },
         topic,
         { returnOriginal: false }
     );
@@ -30,4 +35,4 @@ const remove = async (id) => {
     );
 }
 
-module.exports = { getAll, getById, create, update, remove };
+module.exports = { getAll, getById, getByUserId, create, update, remove };
