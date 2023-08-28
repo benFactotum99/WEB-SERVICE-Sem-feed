@@ -19,16 +19,25 @@ const getUserNewses = async (userId) => {
     return newses;
 }
 
+const controlResurceFeed = async (url) => {
+    var feedUrls = await feedRssApiRepository.findRss(url);
+    if (feedUrls.length === 0) {
+        return false;
+    }
+    return true;
+}
+
 const getNewsesFromUrl = async (url) => {
     var feedUrls = await feedRssApiRepository.findRss(url);
-    if (feedUrls.lenght == 0){
+    if (feedUrls.length === 0) {
         throw Exception("Url privo di feed");
     }
+
     var feed = await feedRssApiRepository.getFeedsRss(feedUrls[0].url);
     var newses = [];
     feed.items.forEach(async (item) => {
         var newsDb = await newsDbRepository.getByGuid(item.guid);
-        if (newsDb == null){
+        if (newsDb == null) {
             var news = newsMappers.itemFeedToNews(item);
             newses.push(news);
         } else {
@@ -42,7 +51,7 @@ const setRankingNewses = async (newses, topicParam) => {
     var vectTopic = await openaiApiRepository.createEmbedding(topicParam.name + " " + topicParam.description);
     await Promise.all(newses.map(async (news) => {
         if ((news.topics.filter(t => t.topic == topicParam.id).length == 0)) {
-            var vectNews = await openaiApiRepository.createEmbedding(news.title + " " + news.content);
+            var vectNews = await openaiApiRepository.createEmbedding(news.title + " " + news.contentSnippet);
             var rankingVects = mathHelpers.vectorSimilarity(vectTopic, vectNews);
             var topicElement = { topic: topicParam.id, ranking: rankingVects };
             news.topics.push(topicElement);
@@ -70,4 +79,4 @@ const remove = async (id) => {
     await newsDbRepository.remove(id);
 }
 
-module.exports = { getAll, getById, getUserNewses, getNewsesFromUrl, setRankingNewses, create, update, upsert, remove };
+module.exports = { getAll, getById, getUserNewses, getNewsesFromUrl, controlResurceFeed, setRankingNewses, create, update, upsert, remove };

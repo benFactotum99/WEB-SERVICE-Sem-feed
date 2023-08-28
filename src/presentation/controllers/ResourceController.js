@@ -1,8 +1,14 @@
 const resourceRepository = require("../../domain/services/ResourceService");
 const userService = require("../../domain/services/UserService");
+const newsService = require("../../domain/services/NewsService");
 
 const upsert = async (req, res) => {
     try {
+        var flag = await newsService.controlResurceFeed(req.body.url);
+        if (!flag) {
+            return res.status(201).json({"message": "Feed rss non configurato nella risorsa"});
+        }
+
         var newResource = await resourceRepository.upsert({
             url: req.body.url
         });
