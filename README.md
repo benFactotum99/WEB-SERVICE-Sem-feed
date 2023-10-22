@@ -1,4 +1,4 @@
-# WEB-SERVICE-Sem-Feed-Daemon
+# WEB-SERVICE-Sem-Feed
 
 Se si intende scaricare il web service va aggiunto un file .env nella seguente forma:
 
