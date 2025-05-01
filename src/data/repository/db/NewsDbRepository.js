@@ -5,8 +5,8 @@ const Topic = require("../../models/Topic");
 require("dotenv").config();
 
 const getAll = async () => {
-    const newss = await News.find();
-    return newss;
+    const news = await News.find();
+    return news;
 }
 
 const getById = async (id) => {
@@ -19,12 +19,12 @@ const getByGuid = async (guid) => {
     return news;
 }
 
-const getUserNewses = async (userId) => {
+const getUserNews = async (userId) => {
     const user = await User.findById(userId);
     const topics = await Topic.find({ "user": userId, "active": true, }, {
         fields: { _id: 1 }
     });
-    const newses = await News
+    const news = await News
         .find({ "resource": user.resources, "topics.ranking": { "$gte": process.env.RANKING }, })
         .populate('resource', 'url')
         .populate({
@@ -35,7 +35,7 @@ const getUserNewses = async (userId) => {
             } 
         })
         .where('topics.topic').in(topics);
-    return newses;
+    return news;
 }
 
 const create = async (news) => {
@@ -66,4 +66,4 @@ const remove = async (id) => {
     );
 }
 
-module.exports = { getAll, getById, getByGuid, getUserNewses, create, update, upsert, remove };
+module.exports = { getAll, getById, getByGuid, getUserNews, create, update, upsert, remove };
