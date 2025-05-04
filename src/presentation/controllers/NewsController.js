@@ -1,5 +1,5 @@
-const newsService = require("../../domain/services/NewsService");
-const resourceService = require("../../domain/services/ResourceService");
+const newsService = require("../../application/services/NewsService");
+const resourceService = require("../../application/services/ResourceService");
 
 const getUserNews = async (req, res) => {
     try {

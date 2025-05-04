@@ -1,7 +1,7 @@
 const User = require("../../data/models/User");
 const jwt = require("jsonwebtoken"); 
 require("dotenv").config()
-const userService = require("../../domain/services/UserService");
+const userService = require("../../application/services/UserService");
 const bcrypt = require("bcrypt");
 const { expDependencies } = require("mathjs");
 

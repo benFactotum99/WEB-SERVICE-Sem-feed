@@ -1,6 +1,6 @@
-const topicService = require("../../domain/services/TopicService");
+const topicService = require("../../application/services/TopicService");
 const jwt = require("jsonwebtoken");
-const authHelpers = require("../../domain/helpers/AuthHelpers");
+const authHelpers = require("../../application/helpers/AuthHelpers");
 
 const getAll = async (req, res) => {
     try {

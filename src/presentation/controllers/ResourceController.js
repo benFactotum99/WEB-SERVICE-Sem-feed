@@ -1,6 +1,6 @@
-const resourceRepository = require("../../domain/services/ResourceService");
-const userService = require("../../domain/services/UserService");
-const newsService = require("../../domain/services/NewsService");
+const resourceRepository = require("../../application/services/ResourceService");
+const userService = require("../../application/services/UserService");
+const newsService = require("../../application/services/NewsService");
 
 const upsert = async (req, res) => {
     try {
